@@ -13,7 +13,7 @@
 
   return document
     .querySelector("pre")
-    .innerHTML.split("\n")
+    .innerText.split("\n")
     .filter((e) => !!e)
     .filter((line) => {
       return line
@@ -44,7 +44,7 @@
 
   return document
     .querySelector("pre")
-    .innerHTML.split("\n")
+    .innerText.split("\n")
     .filter((e) => !!e)
     .map((line) => {
       const maxes = {};

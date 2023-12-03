@@ -4,7 +4,7 @@
 
   return document
     .querySelector("pre")
-    .innerHTML.split("\n")
+    .innerText.split("\n")
     .map((str) => {
       const arr = Array.from(str);
       return parseInt(arr.find(isDigit) + arr.findLast(isDigit)) || 0;
@@ -30,7 +30,7 @@
 
   return document
     .querySelector("pre")
-    .innerHTML.split("\n")
+    .innerText.split("\n")
     .filter((e) => !!e)
     .map((str) => {
       let first = -1;
