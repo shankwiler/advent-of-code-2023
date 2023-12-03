@@ -117,3 +117,10 @@
     return tot + nums[0] * nums[1];
   }, 0);
 })();
+
+// I couldn't figure out why my answer to part one was failing, until I tried
+// running the solution locally with node and the input fed in as an inlined
+// string. The problem was that I had been using `innerHTML` rather than
+// `innerText` so `&` was read as `&amp`, completely throwing off the answer.
+//
+// Lesson learned!
