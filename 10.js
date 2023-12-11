@@ -1,3 +1,4 @@
+// part one
 (() => {
   const lines = document
     .querySelector("pre")
