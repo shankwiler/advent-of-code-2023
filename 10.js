@@ -266,3 +266,98 @@
     visitedScaledDownCount
   );
 })();
+
+// part two alternate
+(() => {
+  const lines2 = document
+    .querySelector("pre")
+    .innerText.split("\n")
+    .filter((e) => !!e);
+
+  const lines = `.....
+.S-7.
+.|.|.
+.L-J.
+.....`
+    .split("\n")
+    .filter((e) => !!e);
+
+  const grid = lines.map((line) => Array.from(line));
+
+  const map = {
+    "|": [
+      [-1, 0],
+      [1, 0],
+    ],
+    "-": [
+      [0, 1],
+      [0, -1],
+    ],
+    L: [
+      [-1, 0],
+      [0, 1],
+    ],
+    J: [
+      [-1, 0],
+      [0, -1],
+    ],
+    7: [
+      [0, -1],
+      [1, 0],
+    ],
+    F: [
+      [0, 1],
+      [1, 0],
+    ],
+  };
+
+  // Start at S
+  // Look around, find one pipe that opens to S. Go to the other square that pipe
+  // opens to. Go to the square that pipe opens to which you haven't already been at.
+  // Go to the other square that pipe opens to which you haven't already been at...
+  // Once you get back to S, count how many squares you've traveled.
+
+  let row;
+  let col;
+  for (row = 0; row < grid.length; row++) {
+    let found = false;
+    for (col = 0; col < grid[0].length; col++) {
+      if (grid[row][col] === "S") {
+        found = true;
+        break;
+      }
+    }
+    if (found) {
+      break;
+    }
+  }
+
+  let previousRow;
+  let previousCol;
+
+  for (const [pipe, directions] of Object.entries(map)) {
+    let found = false;
+    for (const [dr, dc] of directions) {
+      if (grid[row - dr]?.[col - dc] === pipe) {
+        found = true;
+        previousRow = row;
+        previousCol = col;
+        row = row - dr;
+        col = col - dc;
+      }
+    }
+    if (found) {
+      break;
+    }
+  }
+
+  // Start by orienting yourself on the pipe, considering one side as "left"
+  // and one side as "right". Navigate around the full length of the pipe,
+  // keeping track of cells to your "left" and cells to your "right".
+  //
+  // Once you have these two lists of "left" cells and "right" cells, perform
+  // a DFS from each of the two lists. If the search from a list reaches the
+  // edge of the grid, it must be outside the loop. If the search does not
+  // it must be inside the loop.
+  return { row, col };
+})();
